@@ -19,7 +19,7 @@ for example: getting a git submodules config file git-submodules-add will setup 
 
 
 
-For more details you can use script --help.
+For more details on each script you can use script --help or see the code :).
 
-Fell free to contact me or open a issue.
+Fell free to feedback or open a issues.
 
