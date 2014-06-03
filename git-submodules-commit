@@ -1,0 +1,72 @@
+#!/bin/bash
+
+if [[ $1 == "--help" ]]; then
+
+    echo " Esta ferramente efetua o comando autig iterativamente em um diretório com projetos git"
+fi
+
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+
+}
+
+timeLimit=10
+mainDirectory=$(pwd)
+
+
+if [ $(echo $(isEmpty $1)) == 0 ]; then
+
+    if [[ $1 = "-t" ]]; then
+    
+        timeLimit=$2
+        
+        echo "Tempo setado manualmente: "$timeLimit
+    fi
+
+else
+
+    echo "Nenhum parâmetro passado.. utilizando valores default" 
+fi
+
+
+echo "Tempo de delay: "$timeLimit
+
+
+for i in "$@"
+do
+    if [[ "$i" = "-m" ]]; then
+        echo "mensagem default encontrada.."
+        foundMessage=true
+        continue
+    fi
+
+    if [ $foundMessage ]; then
+        messageParameter="$i"
+        foundMessage=false
+    fi
+    
+done
+
+
+for i in $(git-submodules-foreach --listAll)
+do
+        echo "Processando $mainDirectory/$i"
+    
+	    cd $i
+        if [ "$messageParameter" ]; then
+
+            autig -t $timeLimit -m "$messageParameter"
+        else
+
+            autig -t $timeLimit 
+        fi
+
+        cd $mainDirectory
+               
+done
