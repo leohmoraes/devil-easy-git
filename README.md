@@ -21,5 +21,17 @@ for example: getting a git submodules config file git-submodules-add will setup 
 
 For more details on each script you can use script --help or see the code :).
 
+
+
+Installation
+============
+
+Just add the following lines to the bottom of your .bashrc replacing the ~/projects/devil-easy-git directory to your respective devil-easy-git project.
+
+
+export PATH="~/projects/devil-easy-git:$PATH"
+source ~/projects/devil-easy-git/aliases.sh ~/projects/devil-easy-git/
+
+
 Fell free to feedback or open a issues.
 
