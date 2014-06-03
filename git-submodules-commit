@@ -2,7 +2,7 @@
 
 if [[ $1 == "--help" ]]; then
 
-    echo " Esta ferramente efetua o comando autig iterativamente em um diretório com projetos git"
+    echo " Esta ferramente efetua o comando git-commit iterativamente em um diretório com projetos git"
 fi
 
 function isEmpty {
@@ -61,10 +61,10 @@ do
 	    cd $i
         if [ "$messageParameter" ]; then
 
-            autig -t $timeLimit -m "$messageParameter"
+            git-commit -t $timeLimit -m "$messageParameter"
         else
 
-            autig -t $timeLimit 
+            git-commit -t $timeLimit 
         fi
 
         cd $mainDirectory
