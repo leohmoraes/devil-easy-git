@@ -1,7 +1,7 @@
 devil-easy-git
 ==============
 
-A set of scripts to easy the life of git users on bash
+A set of bash scripts to easy the life of git users
 
 
 With these scripts you can easy your git life. For example: 
