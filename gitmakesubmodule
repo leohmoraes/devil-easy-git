@@ -1,0 +1,29 @@
+#!/bin/bash
+
+source $PERSONAL_SCRIPTS_PATH/libutils.sh
+source $PERSONAL_SCRIPTS_PATH/libgitutils.sh
+
+if [ ! -n $1 ]; then
+	echo "Você precisa passar o nome de um módulo válido e estar no diretório module"
+	exit 1
+fi
+
+
+submoduleProjectDir=$1
+moduleName=$submoduleProjectDir
+
+
+git rm --cached -r $submoduleProjectDir
+gitclean $submoduleProjectDir
+
+mv $submoduleProjectDir tmp
+
+git clone git@github.com:jeanCarloMachado/$moduleName $moduleName
+
+cp -rf tmp/* $moduleName
+rm -rf tmp
+
+cd $moduleName
+
+autig
+

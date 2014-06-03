@@ -1,0 +1,98 @@
+#! /bin/bash
+
+# ======= funções =======
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+
+}
+# ======= funções =======
+
+
+if [[ $1 = '--help' ]]; then
+    echo "Utilizado para setar os branchs de todos os submódulos do sistema"
+    exit 1
+fi
+
+if [ ! -e ./.gitmodules ]; then
+    
+        echo 'O arquivo .gitmodules não foi encontrado na pasta atual, você está na raiz do projeto? ';
+        exit 1
+fi
+
+defaultPromptTime=5
+newSubmodule=false
+branchTo="master"
+
+if [ $(isEmpty $1) == 1 ]; then
+    echo "não foi passado o branch para migrar"
+    exit 1
+else
+    branchTo=$1
+fi
+    
+
+while read i
+do
+    if [[ $(echo ${i% *} | tr -d ' ' | tr -d '[') = "submodule" ]]; then
+        newSubmodule=1
+        submoduleName=$(echo ${i#* } | tr -d ']' | tr -d '[' | tr -d '"')
+        echo 'Submódulo encontrado: '$submoduleName
+
+    elif [[ $newSubmodule ]]; then
+        
+        if [[ $(echo ${i%=*} | tr -d ' ' ) = "path" ]]; then
+
+            echo "Processando path...";
+            path=$(echo ${i#*=} | tr -d ' ')
+             
+        elif [[ $(echo ${i%=*} | tr -d ' ' ) = "url" ]]; then
+
+            echo "Processando url...";
+            remote=$(echo ${i#*=} | tr -d ' ')
+
+
+            if [ -e $path ]; then
+
+
+                cd $path
+
+                echo "Efetuando checkout $branchTo" 
+                echo "git chekcout $branchTo"
+                if [ $(git checkout $branchTo) ]; then 
+                    echo "Checkout foi um sucesso!"
+                else
+                    $defaultPromptTime=5
+
+                    read -t $defaultPromptTime -p "Algum erro ocorreu durante o checkout deseja clonar a origem?" cloneOrigin < /dev/tty
+
+                    if [[ ! $cloneOrigin ]]; then
+                        cloneOrigin="n"
+                    fi
+                    
+                    if [[ $cloneOrigin == "y" ]]; then
+                        git fetch origin
+                        git checkout -b $branchTo origin/$branchTo
+                    fi
+                  
+                fi 
+                echo "------------------------------------------Fim"
+                cd -
+            else    
+                echo "Dirtório não existe pulando"
+            fi
+
+            unset newSubmodule
+            unset path
+            unset remote
+        fi
+    fi
+
+
+done < ./.gitmodules
+

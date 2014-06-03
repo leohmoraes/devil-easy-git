@@ -1,0 +1,19 @@
+#!/bin/bash
+#sobreescreve um módulo com outro em outro diretório e depois comita
+source $PERSONAL_SCRIPTS_PATH/libutils.sh
+source $PERSONAL_SCRIPTS_PATH/libgitutils.sh
+
+if [ ! -n $1 ]; then
+	echo "Você precisa passar o nome de um módulo válido e estar no diretório module"
+	exit 1
+fi
+
+moduleName=$1
+newModuleName=/home/jean/data/public/$moduleName
+
+cp -rf $newModuleName/* $moduleName
+
+cd $moduleName
+
+autig
+

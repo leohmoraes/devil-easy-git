@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git config --global user.name "Jean Carlo Machado"
+git config --global user.email j34nc4rl0@gmail.com
+git config pack.windowMemory 10m
+git config pack.packSizeLimit 20m

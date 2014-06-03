@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [[ $1 = "--help" ]]; then
+
+    echo "Ferramenta para ajudar a dar merge à partir de um outro diretório"
+    exit 1
+fi
+
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+
+if [ $(isEmpty $1) != 0 ]; then
+
+    echo "Deve-se utilizar $0 modulename. Na pasta module do projeto!"
+    exit 1
+else
+
+    moduleName=$1
+fi
+
+cd $moduleName
+
+git remote add merge-default ../../../ack-default-modules/$moduleName
+git fetch merge-default
+git merge -X theirs merge-default/master
+
+autig
+

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+	echo "chamada $0 fileFullPath [branch]"
+	exit 1
+fi
+
+branch=master
+path=$1
+
+if [ ! -z $2 ]
+then
+branch=$2
+fi
+
+
+wget https://github.com/vivalacub/ack_default/raw/$branch/$path

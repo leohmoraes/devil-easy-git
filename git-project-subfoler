@@ -1,0 +1,77 @@
+#!/bin/bash
+
+
+if [[ $1 = "--help" ]]; then
+
+    echo "Ferramenta para criar projeto à partir de um diretório de um projeto git."
+    exit 1
+fi
+
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+
+}
+
+
+function quitSafetly {
+    cd $1
+    echo "Deletando branch na origem"
+    git branch -D $2-split       
+}
+
+
+if [ $(isEmpty $1) != 0 ] || [ $(isEmpty $2) != 0 ]; then
+
+    echo "Deve-se utilizar $0 foldername projectName. Na raíz do projeto!"
+    exit 1
+else
+
+    folder=$1
+    projectName=$2
+    projectOrigin=$(pwd)
+fi
+
+echo "Efetuando o split do subdiretório.."
+git subtree split -P $folder -b $projectName-split
+
+
+newProjectsFolder="/home/$USER/Projects/ack-default-modules/"
+
+echo "Criando diretório: $newProjectsFolder$projectName"
+
+if [ -d $newProjectsFolder$projectName ]; then 
+        echo "O diretório já existe deseja sair?"
+
+        read -t 10 -p "O caminho $path já existe, deseja sair? Obs: se continuar os dados serão apagados. y/n " quitNow < /dev/tty
+
+        if [[ ! $quitNow ]]; then
+            quitNow="n"
+        fi
+        
+        if [[ $quitNow == "y" ]]; then
+            echo "Saindo.."
+            $(quitSafetly $projectOrigin $projectName)
+            exit 1
+        fi
+    
+        rm -rf $newProjectsFolder$projectName
+
+fi
+
+mkdir -p $newProjectsFolder$projectName
+cd $newProjectsFolder$projectName
+
+git init .
+git remote add $projectName-orig $projectOrigin
+
+git pull $projectName-orig $projectName-split
+
+
+$(quitSafetly $projectOrigin $projectName)
+

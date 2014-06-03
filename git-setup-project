@@ -1,0 +1,32 @@
+#!/bin/bash
+#da setup de um projeto do git na máquina
+
+########################################################
+#FUNCTIONS 
+########################################################
+if [ -z $1 ]
+then
+	echo "Você precisa passar o nome do respositório"
+	echo "$0 repositoryName [repositoryOwner] "
+	exit 1
+fi
+
+owner="jeanCarloMachado"
+
+if [ ! -z $2 ]
+then
+	owner=$2
+fi
+
+mkdir $1
+cd $1
+
+origin=git@github.com:$owner/$1.git
+#inicializa o projeto
+git init .
+echo "Adiconando a origem: $origin"
+git remote add origin $origin
+#pega o branch master
+#git pull origin $branch 
+#pega os demais branches
+git fetch origin 

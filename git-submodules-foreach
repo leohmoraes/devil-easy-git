@@ -1,0 +1,179 @@
+#! /bin/bash
+
+#========================= funções =========================
+
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+
+function getCurrentBranch {
+
+    echo $(git branch | grep \* | cut -f2 -d ' ')
+}
+
+function isFirstCommit {
+
+    branch=$(getCurrentBranch)
+    #não é nula e nem vazia
+    if [ ! -z "$branch" -a "$branch" != " " ]
+    then
+        echo 0
+    else
+        echo 1
+    fi
+
+}
+
+function getBranchesList {
+
+    branchesList=""
+    for i in $(git branch)
+    do
+        #testa se o retorno é um arquivo
+        if [ -e $i ]; then
+            continue
+        fi
+
+        if [ -z $branchesList ]; then
+            branchesList=$i
+        else
+            branchesList=$branchesList:$i
+        fi
+    done;
+
+    echo $branchesList
+}
+
+
+function hasBranch {
+
+    for i in $(git branch)
+    do
+        #testa se o retorno é um arquivo
+        if [ -e $i ]; then
+            continue
+        fi
+
+        if [[ $i = $1 ]]; then
+            echo 1
+            return 0
+        fi
+    done;
+
+    echo 0
+}
+
+#======================= END funções =======================
+#========================= testes iniciais =========================
+
+if [[ $1 = '--help' ]]; then
+    echo "Utilizado para executar ações genéricas nos submódulos"
+    exit 1
+fi
+
+if [ ! -e ./.gitmodules ]; then
+    echo 'O arquivo .gitmodules não foi encontrado na pasta atual, você está na raiz do projeto? ';
+    exit 1
+fi
+
+#======================= END testes iniciais =======================
+#========================= boostrap variáveis =========================
+
+defaultPromptTime=5
+verbose=0
+
+#======================= END boostrap variáveis =======================
+#========================= itera nos parâmetros para interpretá-los =========================
+
+for i in "$@"
+do
+    if [[ "$i" = "--hasBranch" ]] || [[ "$i" = "-hb" ]]; then
+
+        testBranch=1
+
+    elif [[ $testBranch = 1 ]]; then
+
+        branchNameToTestExistence="$i"
+        testBranch=0
+
+    elif [[ "$i" = "-v" ]]; then
+
+        verbose=1
+        echo "Verbose encontrado"
+
+    elif [[ "$i" = "--listAll" ]] || [[ "$i" = "-la" ]]; then
+        
+        listAll=1
+
+    elif [[ "$i" = "--currentBranch" ]] || [[ "$i" = "-cb" ]]; then
+        
+        currentBranch=1
+    fi
+
+done
+
+#======================= END itera nos parâmetros para interpretà-los =======================
+
+while read i
+do
+    if [[ $(echo ${i% *} | tr -d ' ' | tr -d '[') = "submodule" ]]; then
+       
+        newSubmodule=1
+        submoduleName=$(echo ${i#* } | tr -d ']' | tr -d '[' | tr -d '"')
+
+    elif [ $newSubmodule = 1 ]; then
+        
+        if [[ $(echo ${i%=*} | tr -d ' ' ) = "path" ]]; then
+
+            path=$(echo ${i#*=} | tr -d ' ')
+
+        elif [[ $(echo ${i%=*} | tr -d ' ' ) = "url" ]]; then
+
+            remote=$(echo ${i#*=} | tr -d ' ')
+
+            if [ -e $path ]; then
+
+
+                cd $path > /dev/null 
+
+                if [ $verbose = 1 ]; then
+                    echo "entrando no diretório: $path"
+                fi
+
+                #========================= executa a ação dentro do submódulo =========================
+
+                if [ $branchNameToTestExistence ] && [ $(hasBranch $branchNameToTestExistence) = 1 ]; then
+
+                    if [ $verbose = 1 ]; then
+                        echo "Branch encontrado! "
+                    fi
+
+                    echo $submoduleName
+                elif [ $currentBranch ]; then
+                    
+                    echo $( getCurrentBranch )
+
+                elif [ $listAll ]; then
+
+                    echo $submoduleName
+                fi
+
+                #======================= END executa a ação dentro do submódulo =======================
+
+                cd - > /dev/null 
+            fi
+
+            newSubmodule=0
+            unset path
+            unset remote
+        fi
+    fi
+done < ./.gitmodules
+

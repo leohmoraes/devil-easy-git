@@ -1,0 +1,96 @@
+#! /bin/bash
+
+# ======= funções =======
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+
+}
+# ======= funções =======
+
+
+if [[ $1 = '--help' ]]; then
+    echo "Utilizado para dar setup de submódulos do git como clones, não submódulos propriamente dito, pois estes muitas vezes não funcionam corretamete"
+    exit 1
+fi
+
+if [ ! -e ./.gitmodules ]; then
+    
+        echo 'O arquivo .gitmodules não foi encontrado na pasta atual, você está na raiz do projeto? ';
+        exit 1
+fi
+
+defaultPromptTime=5
+newSubmodule=false
+
+while read i
+do
+    if [[ $(echo ${i% *} | tr -d ' ' | tr -d '[') = "submodule" ]]; then
+        newSubmodule=1
+        submoduleName=$(echo ${i#* } | tr -d ']' | tr -d '[' | tr -d '"')
+        echo 'Submódulo encontrado: '$submoduleName
+        echo 'Processando...'
+
+    elif [[ $newSubmodule ]]; then
+        
+        if [[ $(echo ${i%=*} | tr -d ' ' ) = "path" ]]; then
+
+            echo "processando path";
+            path=$(echo ${i#*=} | tr -d ' ')
+             
+        elif [[ $(echo ${i%=*} | tr -d ' ' ) = "url" ]]; then
+
+            echo "processando url";
+            remote=$(echo ${i#*=} | tr -d ' ')
+
+            read -t $defaultPromptTime -p "Deseja clonar o submódulo? y/n " enableClone < /dev/tty
+
+
+            if [[ ! $enableClone ]]; then
+
+                enableClone="y"
+
+            fi
+
+            if [[ $enableClone = "y" ]]; then 
+               
+                removeOld="n"
+
+                if [ -e $path ]; then
+                    
+                    read -t $defaultPromptTime -p "O caminho $path já existe, deseja apagálo? y/n " removeOld < /dev/tty
+
+                    if [[ ! $removeOld ]]; then
+                        removeOld="n"
+                    fi
+                    
+                    if [[ $removeOld != "y" ]]; then
+                        echo "Pulando repositório..."
+                        continue
+                    fi
+
+                    rm -rf $path 
+            
+                fi
+
+
+                git clone $remote $path
+
+            else
+                echo "Pulando o módulo"
+            fi
+        
+            unset newSubmodule
+            unset path
+            unset remote
+        fi
+    fi
+
+
+done < ./.gitmodules
+

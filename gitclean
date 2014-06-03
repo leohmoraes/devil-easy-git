@@ -1,0 +1,10 @@
+#!/bin/bash
+
+dir="."
+
+
+if [  -n $1 ]; then
+	dir=$1
+fi
+
+find $dir | grep .git | xargs rm -rf
