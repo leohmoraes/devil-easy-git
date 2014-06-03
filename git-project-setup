@@ -1,0 +1,87 @@
+#!/bin/bash
+
+function myHelp {
+
+	printf "Setup's a git project on the current directory \n"
+	printf "Usage: $0 [--owner ownerName] [--verbose] repositoryName"
+}
+
+
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+[ $(isEmpty $@) != 0 ] && {
+	echo $(myHelp)
+	exit 0 
+
+}
+
+
+verbose=0
+owner="jeanCarloMachado"
+has_custom_owner=0
+directory=0
+
+
+#iterate parameters in function to interpret them
+counter=0
+for i in "$@"
+do
+	counter=$[$counter + 1]
+
+       
+    if [[ "$i" = "--owner" ]]; then
+
+    	[ $verbose = 1 ] && {
+			echo "Override owner parameter"
+		}	
+
+		has_custom_owner=1
+	elif [[ $has_custom_owner = 1 ]]; then
+
+		owner=$i
+		has_custom_owner=0
+
+		[ $verbose = 1 ] && {
+			echo "Custom owner is: $owner"
+		}	
+
+    elif [[ "$i" = "-v" ]] || [[ "$i" = "--verbose" ]]; then
+    	verbose=1
+        echo "Verbose found"
+
+    elif [[ "$i" = "--help" ]]; then
+
+   		echo $(myHelp) 
+   		exit 0
+
+	elif [[ $# -eq $counter ]]; then
+		
+		[ $verbose = 1 ] && {
+			echo "Directory parameter found: $i"
+		}
+
+		directory=$i
+    fi
+
+done
+
+mkdir $directory
+cd $directory
+
+origin=git@github.com:$owner/$directory.git
+#inicializa o projeto
+git init .
+echo "Adiconando a origem: $origin"
+git remote add origin $origin
+#pega o branch master
+#git pull origin $branch 
+#pega os demais branches
+git fetch origin 
