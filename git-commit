@@ -1,0 +1,217 @@
+#! /bin/bash
+
+if [[ $1 = '--help' ]]; then
+    
+    echo "Ferramenta para auxiliar o processo de controle de versão através do git.
+        autig significa automator git (inverso).
+
+        Os parâmetros atualmente disponíveis são
+        --help  Esta ajuda
+        -nn (No network) 
+            Para que o script se restrinja a automatizar as funcionalidades
+            somente na máquina local
+    "
+
+    exit 1
+
+fi
+
+
+# ============= funcoes ==============
+rm -rf /tmp/$USER
+mkdir /tmp/$USER 
+chmod 777 -R /tmp/$USER
+
+
+
+for i in "$@"
+do
+    if [[ "$i" = "-m" ]]; then
+        echo "mensagem default encontrada.."
+        foundMessage=true
+        continue
+    fi
+
+    if [ $foundMessage ]; then
+        messageParameter="$i"
+        foundMessage=false
+    fi
+
+done
+
+
+MYTMP=/tmp/$USER
+export MYTMP 
+
+#cria um link simb?lico do bash_aliases
+function createAliasesSymbolicLink {
+	echo "Criando link simb?lico para dotfiles bash_aliases"
+
+	rm -f /home/$USER/.bash_aliases
+	ln -s /home/$USER/Projects/dotFiles/bash_aliases /home/$USER/.bash_aliases
+
+}
+
+function isEmpty {
+
+	if [ -z "$1" -o "$1" == " " ]
+	then
+        echo 1
+    else
+        echo 0
+    fi
+
+}
+function getCurrentBranch {
+
+	echo $(git branch | grep \* | cut -f2 -d ' ')
+}
+
+function isFirstCommit {
+
+	branch=$(getCurrentBranch)
+	#não é nula e nem vazia
+	if [ ! -z "$branch" -a "$branch" != " " ]
+	then
+		echo 0
+	else
+		echo 1
+	fi
+
+}
+
+function getBranchesList {
+
+	branchesList=""
+	for i in $(git branch)
+	do
+		#testa se o retorno é um arquivo
+		if [ -e $i ]
+		then
+			continue
+		fi
+
+
+		if [ -z $branchesList ]
+		then
+			branchesList=$i
+		else
+			branchesList=$branchesList:$i
+		fi
+	done;
+
+	echo $branchesList
+}
+
+# ============= funcoes ==============
+
+# rotina de automatização dos casos mais brandos
+# de versionamento com git
+
+########################################################
+
+timelimit=0
+no_network=0
+
+if [[ $(isEmpty $1) = 0 ]]; then
+
+    
+    if [ $1 == "-nn" ]; then 
+        no_network=1
+    fi
+
+    if [ $1 == "-t" ]; then
+        timeLimit=$2
+    fi  
+fi
+
+if [[ ! $timeLimit ]] 
+then
+        timeLimit=600 #10 minutos 
+fi
+
+
+echo "#################################################################################"
+echo "Auto-commit no diretório $(pwd)" 
+echo "#################################################################################"
+
+#######################################################
+#setup variables
+now=$(date)
+defaultMessage="mensagem automática jean - $now"
+dir=$(pwd)
+disablePull=false
+
+
+branch=$(getCurrentBranch)
+#testa se o branch está vazio e seta o default (master)
+if [ $(isFirstCommit)  == 1 ]
+then
+	branch="master"
+	defaultMessage="setup do projeto"
+	disablePull=true
+fi
+
+#end setup variables
+#######################################################
+
+
+read -t $timeLimit -p "Branch padrão <$branch>, para sobreescrever digite seu nome. Disponíveis <"$(getBranchesList)">" newBranch
+
+if [[ $newBranch ]]
+then
+	branch=$newBranch
+fi
+
+if [ $# ]
+then
+	echo "Pull efetuado com sucesso!"
+else
+	echo "Algum erro aconteceu durante o pull, provavelmente a conexão ao servidor está inalcançável"
+	exit 1
+fi
+
+if [ ! $disablePull ] || [ $no_network == 0 ]
+then
+        echo "Efetuando primeiro pull"
+	git pull origin $branch 
+fi
+
+echo "Efetuando o add . "
+git add .
+
+if [ ! "$messageParameter" ]; then
+    # pega a mensagem do commit do usuário
+    read -t $timeLimit -p "mensagem do commit default <$defaultMessage>" newMessage
+
+else
+    newMessage="$messageParameter"
+fi
+
+#se a nova mensagem não foi setada
+#a nova mensagem será a mensagem padrão
+if [[ ! $newMessage ]]
+then
+    newMessage=$defaultMessage
+fi
+
+#commita as modificações com a mensagem especificada
+git commit -m "$newMessage" -a
+
+if [ ! $disablePull ] || [ $no_network == 0 ]
+then
+        echo "Efetuando segundo pull"
+	git pull origin $branch 
+fi
+
+if [ $no_network == 0 ]; then
+
+    echo "Efetuando o push"
+    if  $(git push origin $branch 2> /dev/null)
+    then
+            echo "Push efetuado com sucesso!"
+    else
+            echo "Algum erro aconteceu, provavelmente a conexão ao servidor está inalcançável"
+            exit 1
+    fi
+fi
