@@ -37,7 +37,7 @@ do
 	counter=$[$counter + 1]
 
        
-    if [[ "$i" = "--owner" ]]; then
+    if [[ "$i" = "--owner" ]] || [[ "$i" = "-o" ]]; then
 
     	[ $verbose = 1 ] && {
 			echo "Override owner parameter"
