@@ -33,3 +33,4 @@ data/cache/*
 !data/cache/.gitkeep
 *.swp
 logs/*
+includes/config.php
