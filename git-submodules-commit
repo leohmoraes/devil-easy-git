@@ -16,7 +16,7 @@ function isEmpty {
 
 }
 
-timeLimit=10
+timeLimit=0
 mainDirectory=$(pwd)
 
 
