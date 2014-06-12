@@ -187,7 +187,6 @@ git add .
 if [ ! "$messageParameter" ] && [ $timelimit != 0 ]; then
     # pega a mensagem do commit do usuário
     read -t $timeLimit -p "mensagem do commit default <$defaultMessage>" newMessage
-
 else
     newMessage="$messageParameter"
 fi
