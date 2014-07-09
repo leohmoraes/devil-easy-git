@@ -79,8 +79,20 @@ do
                 fi
 
 
-                git clone $remote $path
+               mkdir $path
+                cd $path
 
+                origin=$remote
+                #inicializa o projeto
+                git init .
+                echo "Adiconando a origem: $origin"
+                git remote add origin $origin
+                #pega o branch master
+                #git pull origin $branch 
+                #pega os demais branches
+                git fetch origin  
+                git pull origin master
+                cd  -
             else
                 echo "Pulando o módulo"
             fi
