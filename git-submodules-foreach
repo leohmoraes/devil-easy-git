@@ -18,6 +18,14 @@ function getCurrentBranch {
     echo $(git branch | grep \* | cut -f2 -d ' ')
 }
 
+
+
+function getTagsList {
+
+    echo $(git ls-remote --tags | cut -f2 -d$'\t' | cut -f3 -d'/')
+} 
+
+
 function isFirstCommit {
 
     branch=$(getCurrentBranch)
@@ -115,6 +123,10 @@ do
         
         listBranches=1
 
+    elif [[ "$i" = "--listTags" ]] || [[ "$i" = "-lt" ]]; then
+        
+        listTags=1
+
     elif [[ "$i" = "--currentBranch" ]] || [[ "$i" = "-cb" ]]; then
         
         currentBranch=1
@@ -167,6 +179,12 @@ do
                     
                     printf "$submoduleName\n"
                     echo $( getBranchesList )
+                    printf "\n"
+
+                elif [ $listTags ]; then
+                    
+                    printf "$submoduleName\n"
+                    echo $( getTagsList )
                     printf "\n"
 
                 elif [ $listAll ]; then
