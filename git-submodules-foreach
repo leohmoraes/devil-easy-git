@@ -111,6 +111,9 @@ do
     elif [[ "$i" = "--listAll" ]] || [[ "$i" = "-la" ]]; then
         
         listAll=1
+    elif [[ "$i" = "--listBranches" ]] || [[ "$i" = "-lb" ]]; then
+        
+        listBranches=1
 
     elif [[ "$i" = "--currentBranch" ]] || [[ "$i" = "-cb" ]]; then
         
@@ -159,6 +162,12 @@ do
                 elif [ $currentBranch ]; then
                     
                     echo $( getCurrentBranch )
+
+                elif [ $listBranches ]; then
+                    
+                    printf "$submoduleName\n"
+                    echo $( getBranchesList )
+                    printf "\n"
 
                 elif [ $listAll ]; then
 

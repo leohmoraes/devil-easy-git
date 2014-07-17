@@ -528,10 +528,10 @@
 			}
 		},
 		{
-			"file": "/Users/jean/Projects/devil-easy-git/git-project-setup",
+			"file": "/Users/jean/Projects/devil-easy-git/git-bootstrap",
 			"settings":
 			{
-				"buffer_size": 1997,
+				"buffer_size": 182,
 				"line_ending": "Unix"
 			}
 		}
@@ -999,7 +999,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1023,12 +1023,13 @@
 						{
 							"rulers":
 							[
-								15.9,
-								16.2
+								85,
+								16.9,
+								17.2
 							],
 							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
 							"tab_size": 4,
-							"tabs_extra_last_activated": 1403195675.47,
+							"tabs_extra_last_activated": 1404939205.92,
 							"tabs_extra_last_activated_view_index": 0,
 							"translate_tabs_to_spaces": true,
 							"vintage":
@@ -1127,33 +1128,36 @@
 						"translation.y": 1131.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/jean/Projects/devil-easy-git/git-project-setup",
+					"file": "/Users/jean/Projects/devil-easy-git/git-bootstrap",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1997,
+						"buffer_size": 182,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1886,
-								1621
+								13,
+								13
 							]
 						],
 						"settings":
 						{
 							"rulers":
 							[
+								85,
+								-0.1,
+								0.2
 							],
 							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
-							"tabs_extra_last_activated": 1403145571.31,
+							"tabs_extra_last_activated": 1405000414.94,
 							"tabs_extra_last_activated_view_index": 1,
 							"vintage":
 							{
@@ -1170,10 +1174,10 @@
 							}
 						},
 						"translation.x": 0.0,
-						"translation.y": 1804.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
