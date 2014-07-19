@@ -528,10 +528,10 @@
 			}
 		},
 		{
-			"file": "/Users/jean/Projects/devil-easy-git/git-bootstrap",
+			"file": "/Users/jean/Projects/devil-easy-git/git-submodules-foreach",
 			"settings":
 			{
-				"buffer_size": 182,
+				"buffer_size": 4564,
 				"line_ending": "Unix"
 			}
 		}
@@ -784,7 +784,7 @@
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 37.0
 	},
 	"find_in_files":
 	{
@@ -799,6 +799,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"getBrancheslIST",
+			"getbranches",
 			"updateUser",
 			"update",
 			"authenticator",
@@ -924,9 +926,7 @@
 			"exportarnews",
 			"exportarlista",
 			"									'",
-			"_module",
-			"function u",
-			"1"
+			"_module"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1024,12 +1024,12 @@
 							"rulers":
 							[
 								85,
-								16.9,
-								17.2
+								36.9,
+								37.2
 							],
 							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
 							"tab_size": 4,
-							"tabs_extra_last_activated": 1404939205.92,
+							"tabs_extra_last_activated": 1405615894.79,
 							"tabs_extra_last_activated_view_index": 0,
 							"translate_tabs_to_spaces": true,
 							"vintage":
@@ -1125,7 +1125,7 @@
 							}
 						},
 						"translation.x": 0.0,
-						"translation.y": 1131.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1133,19 +1133,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/jean/Projects/devil-easy-git/git-bootstrap",
-					"semi_transient": true,
+					"file": "/Users/jean/Projects/devil-easy-git/git-submodules-foreach",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 182,
+						"buffer_size": 4564,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13,
-								13
+								308,
+								308
 							]
 						],
 						"settings":
@@ -1153,28 +1153,112 @@
 							"rulers":
 							[
 								85,
-								-0.1,
-								0.2
+								16.9,
+								17.2
 							],
 							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
-							"tabs_extra_last_activated": 1405000414.94,
+							"tab_size": 4,
+							"tabs_extra_last_activated": 1405621021.76,
 							"tabs_extra_last_activated_view_index": 1,
+							"translate_tabs_to_spaces": true,
 							"vintage":
 							{
+								"_vintageous_glue_until_normal_mode": false,
 								"action": null,
 								"action_count": "",
 								"capture_register": false,
 								"mode": "mode_normal",
 								"motion": null,
 								"motion_count": "",
+								"normal_insert_count": "1",
 								"partial_sequence": "",
 								"register": "\"",
+								"repeat_data":
+								[
+									"native",
+									[
+										"sequence",
+										{
+											"commands":
+											[
+												[
+													"insert",
+													{
+														"characters": "printf"
+													}
+												],
+												[
+													"insert",
+													{
+														"characters": " "
+													}
+												],
+												[
+													"insert",
+													{
+														"characters": "\nprintf"
+													}
+												],
+												[
+													"insert",
+													{
+														"characters": " "
+													}
+												],
+												[
+													"left_delete",
+													null
+												],
+												[
+													"insert",
+													{
+														"characters": " "
+													}
+												],
+												[
+													"insert_snippet",
+													{
+														"contents": "\"$0\""
+													}
+												],
+												[
+													"insert",
+													{
+														"characters": "n"
+													}
+												],
+												[
+													"left_delete",
+													null
+												],
+												[
+													"insert",
+													{
+														"characters": "\\n\\n"
+													}
+												],
+												[
+													"insert",
+													{
+														"characters": "x"
+													}
+												],
+												[
+													"left_delete",
+													null
+												]
+											]
+										}
+									],
+									"mode_insert",
+									null
+								],
 								"sequence": "",
-								"xpos": 0
+								"xpos": 17
 							}
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2651.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
