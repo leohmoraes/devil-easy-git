@@ -23,7 +23,7 @@ function getCurrentBranch {
 function getTagsList {
 
     echo $(git ls-remote --tags | cut -f2 -d$'\t' | cut -f3 -d'/')
-} 
+}
 
 
 function isFirstCommit {
@@ -98,7 +98,7 @@ defaultPromptTime=5
 verbose=0
 
 #======================= END boostrap variáveis =======================
-#========================= itera nos parâmetros para interpretá-los =========================
+#========================= iterate over the parameters =========================
 
 for i in "$@"
 do
@@ -117,34 +117,34 @@ do
         echo "Verbose encontrado"
 
     elif [[ "$i" = "--listAll" ]] || [[ "$i" = "-la" ]]; then
-        
+
         listAll=1
     elif [[ "$i" = "--listBranches" ]] || [[ "$i" = "-lb" ]]; then
-        
+
         listBranches=1
 
     elif [[ "$i" = "--listTags" ]] || [[ "$i" = "-lt" ]]; then
-        
+
         listTags=1
 
     elif [[ "$i" = "--currentBranch" ]] || [[ "$i" = "-cb" ]]; then
-        
+
         currentBranch=1
     fi
 
 done
 
-#======================= END itera nos parâmetros para interpretà-los =======================
+#======================= END iterate over the parameters =======================
 
 while read i
 do
     if [[ $(echo ${i% *} | tr -d ' ' | tr -d '[') = "submodule" ]]; then
-       
+
         newSubmodule=1
         submoduleName=$(echo ${i#* } | tr -d ']' | tr -d '[' | tr -d '"')
 
     elif [ $newSubmodule = 1 ]; then
-        
+
         if [[ $(echo ${i%=*} | tr -d ' ' ) = "path" ]]; then
 
             path=$(echo ${i#*=} | tr -d ' ')
@@ -156,7 +156,7 @@ do
             if [ -e $path ]; then
 
 
-                cd $path > /dev/null 
+                cd $path > /dev/null
 
                 if [ $verbose = 1 ]; then
                     echo "entrando no diretório: $path"
@@ -172,17 +172,17 @@ do
 
                     echo $submoduleName
                 elif [ $currentBranch ]; then
-                    
+
                     echo $( getCurrentBranch )
 
                 elif [ $listBranches ]; then
-                    
+
                     printf "$submoduleName\n"
                     echo $( getBranchesList )
                     printf "\n"
 
                 elif [ $listTags ]; then
-                    
+
                     printf "$submoduleName\n"
                     echo $( getTagsList )
                     printf "\n"
@@ -194,7 +194,7 @@ do
 
                 #======================= END executa a ação dentro do submódulo =======================
 
-                cd - > /dev/null 
+                cd - > /dev/null
             fi
 
             newSubmodule=0

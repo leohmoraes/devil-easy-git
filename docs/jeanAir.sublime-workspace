@@ -520,18 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/jean/Projects/devil-easy-git/git-submodules-add",
+			"file": "/Users/jean/Projects/devil-easy-git/gitignore",
 			"settings":
 			{
-				"buffer_size": 2686,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/jean/Projects/devil-easy-git/git-submodules-foreach",
-			"settings":
-			{
-				"buffer_size": 4564,
+				"buffer_size": 487,
 				"line_ending": "Unix"
 			}
 		}
@@ -653,6 +645,9 @@
 	},
 	"file_history":
 	[
+		"/Users/jean/Projects/devil-easy-git/git-submodules-add",
+		"/Users/jean/Projects/devil-easy-git/git-submodules-foreach",
+		"/Users/jean/Projects/devil-easy-git/util/setup-sublime-github.sh",
 		"/Users/jean/Projects/site/config/autoload/local.php",
 		"/Users/jean/Projects/site/module/SiteJean/src/SiteJean/Controller/IndexController.php",
 		"/Users/jean/Projects/site/config/autoload/global.php",
@@ -777,14 +772,11 @@
 		"/Users/jean/Projects/vagrant/bootstrap.sh",
 		"/Users/jean/Projects/ikro/includes/View/restrito/pedido/novo_p2.php",
 		"/Users/jean/Projects/ikro/includes/Controller/pedidosRepresentante_Controlleratual.php",
-		"/Users/jean/Projects/ikro/includes/library/0.9/System/Object/Money.php",
-		"/Users/jean/Projects/ikro/sync_classes/library/System/Object/Money.php",
-		"/Users/jean/Projects/ikro/includes/Controller/montadoras_Controller.php",
-		"/Users/jean/Projects/ikro/includes/View/restrito/layout/head.php"
+		"/Users/jean/Projects/ikro/includes/library/0.9/System/Object/Money.php"
 	],
 	"find":
 	{
-		"height": 37.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -799,6 +791,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"verbose",
 			"getBrancheslIST",
 			"getbranches",
 			"updateUser",
@@ -925,8 +918,7 @@
 			"MANTER_SALDO",
 			"exportarnews",
 			"exportarlista",
-			"									'",
-			"_module"
+			"									'"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -999,266 +991,51 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/jean/Projects/devil-easy-git/git-submodules-add",
-					"semi_transient": false,
+					"file": "/Users/jean/Projects/devil-easy-git/gitignore",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 2686,
+						"buffer_size": 487,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2460,
-								2460
+								487,
+								0
 							]
 						],
 						"settings":
 						{
 							"rulers":
 							[
-								85,
-								36.9,
-								37.2
+								85
 							],
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
-							"tab_size": 4,
-							"tabs_extra_last_activated": 1405615894.79,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tabs_extra_last_activated": 1407519916.28,
 							"tabs_extra_last_activated_view_index": 0,
-							"translate_tabs_to_spaces": true,
 							"vintage":
 							{
-								"_vintageous_glue_until_normal_mode": false,
 								"action": null,
 								"action_count": "",
 								"capture_register": false,
-								"mode": "mode_normal",
+								"mode": "mode_visual",
 								"motion": null,
 								"motion_count": "",
-								"normal_insert_count": "1",
 								"partial_sequence": "",
 								"register": "\"",
-								"repeat_data":
-								[
-									"native",
-									[
-										"sequence",
-										{
-											"commands":
-											[
-												[
-													"paste",
-													null
-												],
-												[
-													"indent",
-													null
-												],
-												[
-													"indent",
-													null
-												],
-												[
-													"indent",
-													null
-												],
-												[
-													"indent",
-													null
-												],
-												[
-													"insert",
-													{
-														"characters": "x"
-													}
-												],
-												[
-													"left_delete",
-													null
-												],
-												[
-													"insert",
-													{
-														"characters": "pa"
-													}
-												],
-												[
-													"left_delete",
-													null
-												],
-												[
-													"left_delete",
-													null
-												],
-												[
-													"insert",
-													{
-														"characters": "path"
-													}
-												],
-												[
-													"copy",
-													null
-												],
-												[
-													"paste",
-													null
-												],
-												[
-													"paste",
-													null
-												]
-											]
-										}
-									],
-									"mode_insert",
-									null
-								],
 								"sequence": "",
-								"xpos": 37
+								"xpos": 19
 							}
 						},
 						"translation.x": 0.0,
-						"translation.y": 45.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/jean/Projects/devil-easy-git/git-submodules-foreach",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4564,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								308,
-								308
-							]
-						],
-						"settings":
-						{
-							"rulers":
-							[
-								85,
-								16.9,
-								17.2
-							],
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
-							"tab_size": 4,
-							"tabs_extra_last_activated": 1405621021.76,
-							"tabs_extra_last_activated_view_index": 1,
-							"translate_tabs_to_spaces": true,
-							"vintage":
-							{
-								"_vintageous_glue_until_normal_mode": false,
-								"action": null,
-								"action_count": "",
-								"capture_register": false,
-								"mode": "mode_normal",
-								"motion": null,
-								"motion_count": "",
-								"normal_insert_count": "1",
-								"partial_sequence": "",
-								"register": "\"",
-								"repeat_data":
-								[
-									"native",
-									[
-										"sequence",
-										{
-											"commands":
-											[
-												[
-													"insert",
-													{
-														"characters": "printf"
-													}
-												],
-												[
-													"insert",
-													{
-														"characters": " "
-													}
-												],
-												[
-													"insert",
-													{
-														"characters": "\nprintf"
-													}
-												],
-												[
-													"insert",
-													{
-														"characters": " "
-													}
-												],
-												[
-													"left_delete",
-													null
-												],
-												[
-													"insert",
-													{
-														"characters": " "
-													}
-												],
-												[
-													"insert_snippet",
-													{
-														"contents": "\"$0\""
-													}
-												],
-												[
-													"insert",
-													{
-														"characters": "n"
-													}
-												],
-												[
-													"left_delete",
-													null
-												],
-												[
-													"insert",
-													{
-														"characters": "\\n\\n"
-													}
-												],
-												[
-													"insert",
-													{
-														"characters": "x"
-													}
-												],
-												[
-													"left_delete",
-													null
-												]
-											]
-										}
-									],
-									"mode_insert",
-									null
-								],
-								"sequence": "",
-								"xpos": 17
-							}
-						},
-						"translation.x": 0.0,
-						"translation.y": 2651.0,
+						"translation.y": 1.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1298,6 +1075,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 122.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -1833,6 +1614,10 @@
 		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"ikro",
+				"~/Projects/ikro/docs/ikro.sublime-project"
+			]
 		],
 		"width": 380.0
 	},
@@ -1846,6 +1631,7 @@
 	},
 	"settings":
 	{
+		"_vintageous_reset_during_init": true,
 		"vintage":
 		{
 		}

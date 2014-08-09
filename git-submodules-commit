@@ -2,71 +2,101 @@
 
 if [[ $1 == "--help" ]]; then
 
-    echo " Esta ferramente efetua o comando git-commit iterativamente em um diretório com projetos git"
+    echo " git-commit for submodules "
 fi
+
+#========================= function definition =========================
+#assert scope is not a regular paramter
+function getScope {
+     echo "$1" | egrep -v '([- ]+[A-Za-z]+)'
+}
+
 
 function isEmpty {
 
-	if [ -z "$1" -o "$1" == " " ]
-	then
+    if [ -z "$1" -o "$1" == " " ]
+    then
         echo 1
     else
         echo 0
     fi
 
 }
+#======================== END function definition =======================
+#========================= variables bootstrap =========================
 
 timeLimit=0
 mainDirectory=$(pwd)
+submodule=` getScope "${@: -1}" ` #last argument
+verbose=0
+
+#======================== END variables bootstrap =======================
 
 
 if [ $(echo $(isEmpty $1)) == 0 ]; then
 
     if [[ $1 = "-t" ]]; then
-    
+
         timeLimit=$2
-        
+
         echo "Tempo setado manualmente: "$timeLimit
     fi
 
 else
-
-    echo "Nenhum parâmetro passado.. utilizando valores default" 
+    echo "Nenhum parâmetro passado.. utilizando valores default"
 fi
-
 
 echo "Tempo de delay: "$timeLimit
 
-
 for i in "$@"
 do
-    if [[ "$i" = "-m" ]]; then
-        echo "mensagem default encontrada.."
-        foundMessage=true
-        continue
-    fi
-
-    if [ $foundMessage ]; then
+    if [[ "$i" = "-v" ]]; then
+        verbose=" -v "
+        echo "Verbose activated"
+    elif [[ $foundMessage = true ]]; then
         messageParameter="$i"
         foundMessage=false
+    elif [[ "$i" = "-m" ]]; then
+        echo "mensagem default encontrada.."
+        foundMessage=true
     fi
-    
 done
 
+[[ $verbose ]] && {
 
-for i in $(git-submodules-foreach --listAll)
+    echo "Submodule: $submodule"
+}
+
+#get the list of the submodules
+#scopped or not
+if [[ 1 == `isEmpty $submodule` ]]; then
+
+    modulesList=$(git-submodules-foreach --listAll)
+else
+
+    [[ $verbose ]] && {
+
+        echo "Scopped submodule enabled."
+    }
+
+    modulesList="module/$submodule"
+fi
+
+
+
+for i in  $modulesList
 do
         echo "Processando $mainDirectory/$i"
-    
+
 	    cd $i
         if [ "$messageParameter" ]; then
 
             git-commit -t $timeLimit -m "$messageParameter"
         else
 
-            git-commit -t $timeLimit 
+            git-commit -t $timeLimit
         fi
 
         cd $mainDirectory
-               
+
 done

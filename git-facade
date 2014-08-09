@@ -1,0 +1,143 @@
+#!/bin/bash
+
+
+[[ $1 = '--help' ]] || [[ $1 = '-h' ]] && {
+
+    echo "
+    This script has the intent to provide a easy facade for the other utilities implemented on this package.
+    It does not provide nothing new, the real functionalities are implement on the other commands.
+
+    Usage:
+
+    $0 main-action [parameters] [scope]
+
+
+    Actions:
+    --commit or -c
+        commit action is to commit on the current package
+
+    --commit-submodule -cs [submodule-name]
+        commit-submodule for commiting a submodule on the current git project followed by the name of the submodule
+
+    Parameters:
+
+    --verbose or -v
+        used to get more information about what is happening
+
+    "
+
+    exit 1
+
+}
+
+#========================= functions =========================
+function isEmpty {
+
+    if [ -z "$1" -o "$1" == " " ]
+    then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+#assert scope is not a regular paramter
+function getScope {
+     echo "$1" | egrep -v '([- ]+[A-Za-z]+)'
+}
+
+#======================== END functions =======================
+#========================= initialization variables =========================
+verbose=""
+mainAction=$1
+scope=` getScope "${@: -1}" ` #last argument
+messageParameter=""
+messageCommand=""
+messageIteration=0
+#======================== END initialization variables =======================
+#========================= iterate over the parameters =========================
+
+counter=1
+for i in "$@"
+do
+    if [[ "$i" = "-v" ]]; then
+
+        verbose=" -v "
+        echo "Verbose activated"
+
+    elif [[ $messageIteration = 1 ]]; then
+
+        [[ $verbose ]] && {
+            echo "Message found: "$i
+        }
+
+        messageParameter="$i"
+        messageCommand="-m"
+        messageIteration=0
+
+    elif [[ "$i" = "-m" ]]; then
+
+        messageIteration=1
+
+    fi
+
+    counter=$[$COUNTER + 1]
+done
+
+#if the main package name is
+#main, them commit the main package
+#with the command commit-main
+[[ $scope = 'main' ]] && {
+    mainAction='-cm'
+}
+
+#======================= END iterate over the parameters =======================
+
+[[ $verbose ]] && {
+    echo "Main action: "$mainAction
+    echo "Scope: "$scope
+}
+
+if [[ $mainAction = "commit-submodule" ]] || [[ $mainAction = "-cs" ]]; then
+
+
+    [[ $verbose ]] && {
+        echo "Command to be runned: git-submodules-commit $verbose $messageCommand \"$messageParameter\" $scope"
+    }
+
+    git-submodules-commit $verbose $messageCommand "$messageParameter" "$scope"
+
+elif [[ $mainAction = 'commit-global' ]] || [[ $mainAction = '-cg' ]]; then
+
+
+    [[ $verbose ]] && {
+        echo "Commit global choosed"
+        echo "Commit submodules with the following command:"
+        echo "git-submodules-commit $verbose $messageCommand \"$messageParameter\" $scope"
+    }
+
+    git-submodules-commit $verbose $messageCommand "$messageParameter" "$scope"
+
+
+    [[ $verbose ]] && {
+        echo "Commit main project with the following command"
+        echo "git-commit $verbose $messageCommand \"$messageParameter\""
+    }
+
+    git-commit $verbose $messageCommand "$messageParameter"
+
+
+elif [[ $mainAction = 'commit-main' ]] || [[ $mainAction = '-cm' ]]; then
+
+    [[ $verbose ]] && {
+        echo "Commit main project with the following command"
+        echo "git-commit $verbose $messageCommand \"$messageParameter\""
+    }
+
+    git-commit $verbose $messageCommand "$messageParameter"
+
+else
+
+    echo "Action not found!"
+fi
+
