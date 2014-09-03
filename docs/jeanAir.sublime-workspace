@@ -520,10 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/jean/Projects/devil-easy-git/gitignore",
+			"file": "/Users/jean/Projects/devil-easy-git/git-facade",
 			"settings":
 			{
-				"buffer_size": 487,
+				"buffer_size": 3410,
 				"line_ending": "Unix"
 			}
 		}
@@ -645,6 +645,7 @@
 	},
 	"file_history":
 	[
+		"/Users/jean/Projects/devil-easy-git/git-commit",
 		"/Users/jean/Projects/devil-easy-git/git-submodules-add",
 		"/Users/jean/Projects/devil-easy-git/git-submodules-foreach",
 		"/Users/jean/Projects/devil-easy-git/util/setup-sublime-github.sh",
@@ -771,8 +772,7 @@
 		"/Users/jean/Projects/ikro/docs/html/JSON.php",
 		"/Users/jean/Projects/vagrant/bootstrap.sh",
 		"/Users/jean/Projects/ikro/includes/View/restrito/pedido/novo_p2.php",
-		"/Users/jean/Projects/ikro/includes/Controller/pedidosRepresentante_Controlleratual.php",
-		"/Users/jean/Projects/ikro/includes/library/0.9/System/Object/Money.php"
+		"/Users/jean/Projects/ikro/includes/Controller/pedidosRepresentante_Controlleratual.php"
 	],
 	"find":
 	{
@@ -996,18 +996,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/jean/Projects/devil-easy-git/gitignore",
-					"semi_transient": true,
+					"file": "/Users/jean/Projects/devil-easy-git/git-facade",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 487,
+						"buffer_size": 3410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								487,
+								0,
 								0
 							]
 						],
@@ -1017,25 +1017,27 @@
 							[
 								85
 							],
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tabs_extra_last_activated": 1407519916.28,
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"tab_size": 4,
+							"tabs_extra_last_activated": 1407893775.46,
 							"tabs_extra_last_activated_view_index": 0,
+							"translate_tabs_to_spaces": true,
 							"vintage":
 							{
 								"action": null,
 								"action_count": "",
 								"capture_register": false,
-								"mode": "mode_visual",
+								"mode": "mode_normal",
 								"motion": null,
 								"motion_count": "",
 								"partial_sequence": "",
 								"register": "\"",
 								"sequence": "",
-								"xpos": 19
+								"xpos": 0
 							}
 						},
 						"translation.x": 0.0,
-						"translation.y": 1.0,
+						"translation.y": 408.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

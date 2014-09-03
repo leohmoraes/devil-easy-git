@@ -19,6 +19,9 @@
     --commit-submodule -cs [submodule-name]
         commit-submodule for commiting a submodule on the current git project followed by the name of the submodule
 
+    --commit-global or -cg
+        commit the main package and all its children
+
     Parameters:
 
     --verbose or -v

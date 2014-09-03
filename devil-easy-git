@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "The intent of this script is to list all options available throught command that devil-easy-git dispose.
+When you know the command you are looking for is easier to call command --help to see a detailed descriptions of the functionalities."
+printf "\n\nList of commands:\n"
+
+echo "git-facade: a facade for many other fucntionalities of devil-easy-git"
